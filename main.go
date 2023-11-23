@@ -1,5 +1,4 @@
 // main.go
-
 package main
 
 import (
@@ -9,17 +8,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
-
-// User represents a user in the system.
-type User struct {
-	ID        int       `json:"id" bson:"_id"`
-	Name      string    `json:"name" bson:"name"`
-	Mobile    string    `json:"mobile" bson:"mobile"`
-	Latitude  float64   `json:"latitude" bson:"latitude"`
-	Longitude float64   `json:"longitude" bson:"longitude"`
-	CreatedAt time.Time `json:"created_at" bson:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" bson:"updated_at"`
-}
 
 // Product represents a product in the system.
 type Product struct {

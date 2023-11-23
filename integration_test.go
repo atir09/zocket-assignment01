@@ -1,3 +1,4 @@
+// integration_test.go
 package main
 
 import (
@@ -13,7 +14,12 @@ import (
 )
 
 func TestCreateProductIntegration(t *testing.T) {
+	// Replace your router setup with a testing router
 	router := gin.Default()
+
+	// Register the API routes
+	router.POST("/api/products", CreateProduct)
+	router.GET("/api/products", GetProducts)
 
 	// Your test code for creating a product via HTTP request
 	product := Product{
@@ -42,8 +48,12 @@ func TestCreateProductIntegration(t *testing.T) {
 }
 
 func TestGetProductsIntegration(t *testing.T) {
-
+	// Replace your router setup with a testing router
 	router := gin.Default()
+
+	// Register the API routes
+	router.POST("/api/products", CreateProduct)
+	router.GET("/api/products", GetProducts)
 
 	// Your test code for retrieving products via HTTP request
 	req, err := http.NewRequest("GET", "/api/products", nil)

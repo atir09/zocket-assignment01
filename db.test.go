@@ -14,8 +14,7 @@ func TestConnectToDB(t *testing.T) {
 }
 
 func TestInsertProduct(t *testing.T) {
-	// Your test code for InsertProduct function
-	// Example:
+
 	product := Product{
 		ProductID:               1,
 		ProductName:             "Test Product",
@@ -32,8 +31,7 @@ func TestInsertProduct(t *testing.T) {
 }
 
 func TestGetProductsFromDB(t *testing.T) {
-	// Your test code for GetProductsFromDB function
-	// Example:
+
 	products, err := GetProductsFromDB()
 	assert.NoError(t, err)
 	assert.NotEmpty(t, products)
