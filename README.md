@@ -7,20 +7,7 @@ Zocket-Product-Management-App
 A backend system using the Go programming
 language for a product management application
 
-## Project Structure
 
-
-Certainly! Here's the README template in Markdown format:
-
-markdown
-Copy code
-# Project Title
-
-[Your Project Name]
-
-## Project Description
-
-[Provide a brief description of your project.]
 
 ## Project Structure
 
@@ -66,7 +53,19 @@ Update the MongoDB connection string in db/database.go.
 
 **Create User:**
 
-Endpoint: POST /users
+Endpoint: POST /users<br>
+Payload:{
+    "name":string,
+	"mobile":string,
+	"latitude":string,
+	"longitude" :string
+}
+
+
+
+**Create Product:**
+
+Endpoint: POST /products <br>
 Payload:{
   "product_name" : string
   "product_description" : string
@@ -74,11 +73,6 @@ Payload:{
  "product_price" : int,
  "compressed_product_images": []string
 }
-
-
-**Create Product:**
-
-Endpoint: POST /products
 
 
 **Get Products:**
@@ -93,4 +87,4 @@ Endpoint: GET /products/{productID}
 ## Testing
 
     ```bash
-    go test -v ./...
+     go test -v ./...
