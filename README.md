@@ -11,16 +11,16 @@ language for a product management application
 
 ## Project Structure
 
-cmd
-    -main.go
-api
-    -routes.go
-    -handlers.go
-    -handlers_test.go
-db
-    -database.go
-models
-    -models.go
+cmd<br>
+    -main.go<br>
+api<br>
+    -routes.go<br>
+    -handlers.go<br>
+    -handlers_test.go<br>
+db<br>
+    -database.go<br>
+models<br>
+    -models.go<br>
 
 
 
@@ -84,7 +84,6 @@ Endpoint: GET /products
 Endpoint: GET /products/{productID}
 
 
-## Testing
+## Testing<br>
 
-    ```bash
      go test -v ./...
