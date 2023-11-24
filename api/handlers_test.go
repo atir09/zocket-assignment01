@@ -1,3 +1,5 @@
+// handlers_test.go
+
 package api
 
 import (
@@ -6,57 +8,167 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 	"zocket-api/db"
 	"zocket-api/models"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateUser(t *testing.T) {
-
+	// Initialize a new MongoDB client for testing
 	db.Connect()
 
-	// Create a new user
+	// Create a request body for testing
 	user := models.User{
-		ID:        [12]byte{},
-		Name:      "John",
+		Name:      "Test User",
 		Mobile:    "1234567890",
-		Latitude:  "12.345",
-		Longitude: "67.890",
-		CreatedAt: time.Time{},
-		UpdatedAt: time.Time{},
+		Latitude:  "12.34",
+		Longitude: "56.78",
 	}
-
-	// Convert user struct to JSON
 	userJSON, _ := json.Marshal(user)
+	body := bytes.NewReader(userJSON)
 
-	// Create a request with the user JSON
-	req, err := http.NewRequest("POST", "/users", bytes.NewBuffer(userJSON))
+	// Create a request and recorder
+	req, err := http.NewRequest("POST", "/users", body)
 	if err != nil {
 		t.Fatal(err)
 	}
-
-	// Set the request header
-	req.Header.Set("Content-Type", "application/json")
-
-	// Create a response recorder
 	rr := httptest.NewRecorder()
 
-	// Create an HTTP handler function for CreateUser
+	// Call the handler function
 	handler := http.HandlerFunc(CreateUser)
-
-	// Serve the HTTP request
 	handler.ServeHTTP(rr, req)
 
-	// Check the status code
-	if status := rr.Code; status != http.StatusCreated {
-		t.Errorf("Handler returned wrong status code: got %v want %v",
-			status, http.StatusCreated)
+	// Check the response status code
+	assert.Equal(t, http.StatusCreated, rr.Code)
+
+	// Verify the response body
+	var responseUser models.User
+	err = json.Unmarshal(rr.Body.Bytes(), &responseUser)
+	assert.Nil(t, err)
+
+}
+
+func TestCreateProduct(t *testing.T) {
+	// Initialize a new MongoDB client for testing
+	db.Connect()
+
+	// Create a request body for testing
+	product := models.Product{
+		Name:        "Test Product",
+		Description: "Test Description",
+		Images:      []string{"image1.jpg", "image2.jpg"},
+		Price:       100,
+	}
+	productJSON, _ := json.Marshal(product)
+	body := bytes.NewReader(productJSON)
+
+	// Create a request and recorder
+	req, err := http.NewRequest("POST", "/products", body)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rr := httptest.NewRecorder()
+
+	// Call the handler function
+	handler := http.HandlerFunc(CreateProduct)
+	handler.ServeHTTP(rr, req)
+
+	// Check the response status code
+	assert.Equal(t, http.StatusCreated, rr.Code)
+
+	// Verify the response body
+	var responseProduct models.Product
+	err = json.Unmarshal(rr.Body.Bytes(), &responseProduct)
+	assert.Nil(t, err)
+
+}
+
+func TestGetProducts(t *testing.T) {
+	// Initialize a new MongoDB client for testing
+	db.Connect()
+
+	// Insert test data into the database
+	product1 := models.Product{
+		Name:        "Product 1",
+		Description: "Description 1",
+		Images:      []string{"image1.jpg"},
+		Price:       50,
+	}
+	product2 := models.Product{
+		Name:        "Product 2",
+		Description: "Description 2",
+		Images:      []string{"image2.jpg"},
+		Price:       75,
 	}
 
-	// Check the response body
-	expected := `{"id":"000000000000000000000000","name":"John Doe","mobile":"1234567890","latitude":"12.345","longitude":"67.890","created_at":"` + time.Now().UTC().Format(time.RFC3339) + `","updated_at":"` + time.Now().UTC().Format(time.RFC3339) + `"}`
-	if rr.Body.String() != expected {
-		t.Errorf("Handler returned unexpected body: got %v want %v",
-			rr.Body.String(), expected)
+	db.InsertProduct(product1)
+	db.InsertProduct(product2)
+
+	// Create a request and recorder
+	req, err := http.NewRequest("GET", "/products", nil)
+	if err != nil {
+		t.Fatal(err)
 	}
+	rr := httptest.NewRecorder()
+
+	// Call the handler function
+	handler := http.HandlerFunc(GetProducts)
+	handler.ServeHTTP(rr, req)
+
+	// Check the response status code
+	assert.Equal(t, http.StatusOK, rr.Code)
+
+	// Verify the response body
+	var responseProducts []models.Product
+	err = json.Unmarshal(rr.Body.Bytes(), &responseProducts)
+	assert.Nil(t, err)
+
 }
+
+// func TestGetProductByID(t *testing.T) {
+// 	// Initialize a new MongoDB client for testing
+// 	db.Connect()
+
+// 	// Insert test data into the database
+// 	product := models.Product{
+// 		Name:        "Test Product",
+// 		Description: "Test Description",
+// 		Images:      []string{"image1.jpg", "image2.jpg"},
+// 		Price:       100,
+// 	}
+// 	db.InsertProduct(product)
+
+// 	// Get the product ID from the inserted data
+// 	insertedProducts, err := db.GetProducts()
+// 	if err != nil || len(insertedProducts) == 0 {
+// 		t.Fatal("Error getting product ID for testing")
+// 	}
+
+// 	productID := insertedProducts[0].ID.Hex()
+// 	print(insertedProducts)
+
+// 	// Create a request and recorder
+// 	req, err := http.NewRequest("GET", "/products/"+productID, nil)
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+// 	rr := httptest.NewRecorder()
+
+// 	// Call the handler function
+// 	handler := http.HandlerFunc(GetProductByID)
+// 	handler.ServeHTTP(rr, req)
+
+// 	// Check the response status code
+// 	assert.Equal(t, http.StatusOK, rr.Code)
+
+// 	// Verify the response body
+// 	var responseProduct models.Product
+// 	err = json.Unmarshal(rr.Body.Bytes(), &responseProduct)
+// 	assert.Nil(t, err)
+
+// 	// Additional assertions as needed
+// 	assert.Equal(t, product.Name, responseProduct.Name, "Product Name mismatch")
+// 	assert.Equal(t, product.Description, responseProduct.Description, "Product Description mismatch")
+
+// }

@@ -19,12 +19,11 @@ type User struct {
 
 // Product represents the product model.
 type Product struct {
-	ID                      primitive.ObjectID `json:"product_id" bson:"_id,omitempty"`
-	Name                    string             `json:"product_name" bson:"name"`
-	Description             string             `json:"product_description" bson:"description"`
-	Images                  []string           `json:"product_images" bson:"images"`
-	Price                   int                `json:"product_price" bson:"price"`
-	CompressedProductImages []string           `json:"compressed_product_images" bson:"compressed_images"`
-	CreatedAt               time.Time          `json:"created_at" bson:"created_at"`
-	UpdatedAt               time.Time          `json:"updated_at" bson:"updated_at"`
+	ID          primitive.ObjectID `json:"product_id" bson:"_id,omitempty"`
+	Name        string             `json:"product_name" bson:"name"`
+	Description string             `json:"product_description" bson:"description"`
+	Images      []string           `json:"product_images" bson:"images"`
+	Price       int                `json:"product_price" bson:"price"`
+	CreatedAt   time.Time          `json:"created_at" bson:"created_at"`
+	UpdatedAt   time.Time          `json:"updated_at" bson:"updated_at"`
 }

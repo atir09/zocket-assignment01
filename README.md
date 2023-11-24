@@ -19,6 +19,7 @@ api<br>
     -handlers_test.go<br>
 db<br>
     -database.go<br>
+    -db_test.go
 models<br>
     -models.go<br>
 
