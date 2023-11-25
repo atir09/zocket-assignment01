@@ -99,3 +99,7 @@ Zocket-Product-Management-App is a backend application built using the Go progra
 ## Testing<br>
 
      go test -v ./...
+
+## Technologies Used
+- Go (Golang): The main programming language for building the application logic.
+- MongoDB: A NoSQL database for storing user and product information.
