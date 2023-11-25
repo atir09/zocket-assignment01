@@ -4,28 +4,41 @@ Zocket-Product-Management-App
 
 ## Project Description
 
-A backend system using the Go programming
-language for a product management application
+Zocket-Product-Management-App is a backend application built using the Go programming language. The system is designed to manage product information and user data, providing a simple and efficient solution. The application includes API endpoints for creating users, adding products, and retrieving product details. User and product information is stored in a MongoDB database, ensuring data persistence.
 
+## Key Features
 
+**User Management:**
+- Create users with essential details such as name, contact number, and location coordinates.
+
+**Product Management:**
+- Add products with details like name, description, images, and price.
+
+**Data Storage:**
+- Utilize a MongoDB database to store and manage user and product information.
+
+**Testing:**
+- The project includes comprehensive unit tests to ensure code quality. The README provides commands for executing tests.
 
 ## Project Structure
 
-cmd<br>
-    -main.go<br>
-api<br>
-    -routes.go<br>
-    -handlers.go<br>
-    -handlers_test.go<br>
-db<br>
-    -database.go<br>
-    -db_test.go
-models<br>
-    -models.go<br>
+- cmd<br>
+  - main.go<br>
+- api<br>
+  - routes.go<br>
+  - handlers.go<br>
+  - handlers_test.go<br>
+- db<br>
+  - database.go<br>
+  - db_test.go
+- models<br>
+  - models.go<br>
 
 
 
 ## Getting Started
+
+- Follow the instructions to set up the project locally, configure dependencies, and run the application.
 
 1. **Clone the Repository:**
 
@@ -41,8 +54,7 @@ models<br>
 
 3. **Configure MongoDB:**
 
-Make sure you have a MongoDB instance running.
-Update the MongoDB connection string in db/database.go.
+   Make sure you have a MongoDB instance running. Update the MongoDB connection string in db/database.go.
 
 4. **Run the Application:**
 
@@ -54,11 +66,11 @@ Update the MongoDB connection string in db/database.go.
 
 **Create User:**
 
-Endpoint: POST /users<br>
-Payload:{
-    "name":string,
-	"mobile":string,
-	"latitude":string,
+- Endpoint : POST /users<br>
+- Payload : {
+    "name":string, 
+	"mobile":string, 
+	"latitude":string, 
 	"longitude" :string
 }
 
@@ -66,23 +78,22 @@ Payload:{
 
 **Create Product:**
 
-Endpoint: POST /products <br>
-Payload:{
-  "product_name" : string
-  "product_description" : string
- "product_images": []string
- "product_price" : int,
- "compressed_product_images": []string
+- Endpoint : POST /products <br>
+- Payload : {
+  "product_name" : string, 
+  "product_description" : string, 
+ "product_images": []string, 
+ "product_price" : int, 
 }
 
 
 **Get Products:**
 
-Endpoint: GET /products
+- Endpoint : GET /products
 
 **Get Product by ID:**
 
-Endpoint: GET /products/{productID}
+- Endpoint : GET /products/{productID}
 
 
 ## Testing<br>
